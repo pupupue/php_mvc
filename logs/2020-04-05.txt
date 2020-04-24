@@ -1,0 +1,16 @@
+[05-Apr-2020 23:40:20 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('favicon.ico')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[05-Apr-2020 23:41:20 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('favicon.ico')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[05-Apr-2020 23:45:02 Europe/Berlin] Uncaught exception: 'Error' with mistake 'Call to undefined method App\Utility\Database::fetchAll()' 
+Stack trace: '#0 C:\xampp\htdocs\App\Controllers\Posts.php(24): App\Models\Post->getAll()
+#1 [internal function]: App\Controllers\Posts->indexAction()
+#2 C:\xampp\htdocs\Core\Controller.php(48): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\Core\Router.php(122): Core\Controller->__call('index', Array)
+#4 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('posts/index')
+#5 {main}' 
+Thrown in 'C:\xampp\htdocs\App\Models\Post.php' on line: '26'

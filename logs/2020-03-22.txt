@@ -1,0 +1,36 @@
+[22-Mar-2020 07:21:21 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('pddas')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 07:46:42 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('bbbbb')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 07:55:15 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('bbbbb')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 07:55:15 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('favicon.ico')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 08:00:16 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('bbbbb')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 08:00:16 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('favicon.ico')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 08:04:33 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('bbbbb')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 08:04:34 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('favicon.ico')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[22-Mar-2020 08:06:24 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('favicon.ico')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'

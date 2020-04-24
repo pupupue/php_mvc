@@ -1,0 +1,12 @@
+[23-Mar-2020 16:15:32 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('mvc_ecomm')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[23-Mar-2020 16:15:32 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('favicon.ico')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'
+[23-Mar-2020 16:21:06 Europe/Berlin] Uncaught exception: 'Exception' with mistake 'No route matched.' 
+Stack trace: '#0 C:\xampp\htdocs\public\index.php(38): Core\Router->dispatch('mvc_ecomm')
+#1 {main}' 
+Thrown in 'C:\xampp\htdocs\Core\Router.php' on line: '134'

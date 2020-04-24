@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Welcome</h1>
+    <p>Hello from a Twig template!</p>
+
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body bg-light mt-5">
+            <h2>Create Your Account</h2>
+            <form action="/users/register" method="post">
+            
+
+            <!-- inside form -->
+            <p>Please fill out this form to register with us!</p>
+            {% set i = 0 %}
+            {% for key,value in errors %}
+                <div class="form-group">
+
+                {% set msg = value %}
+                {% if msg == '' %}
+                    {% set out_class = '' %}
+                {% else %}
+                    {% set out_class = 'is-invalid' %}
+                {% endif %}
+
+                {% set j = 0 %}
+
+                {% for key2, value2 in data %}
+                    {% if j == i %}
+                        {% set out_key = key2 %}
+                        <!-- hardcoded readable names -->
+                        {% set out_key_readable = key2 %}
+                        {% if out_key_readable == "forename" %}
+                            {% set out_key_readable = "name" %}
+                        {% endif %}
+                        {% if out_key_readable == "confirm_password" %}
+                            {% set out_key_readable = "confirm your password" %}
+                        {% endif %}
+                        <!--  -->
+                        {% set out_value = value2 %}
+
+                        {% if out_key == 'password' or out_key == 'confirm_password' %}
+                        <label for="{{ out_key }}">{{ out_key|capitalize }}: <sup>*</sup></label>
+                        <input type="password" name="{{ out_key }}" class="form-control form-control-lg {{ out_class }}" value="{{ out_value }}">
+                        {% else %}
+                        <label for="{{ out_key }}">{{ out_key|capitalize }}: <sup>*</sup></label>
+                        <input type="text" name="{{ out_key }}" class="form-control form-control-lg {{ out_class }}" value="{{ out_value }}">
+                        {% endif %}
+                        
+                    {% endif %}
+
+                    {% set j = j + 1 %}
+                {% endfor %}
+                    <span class="invalid-feedback">{{ msg }}</span>
+                </div>
+                {% set i = i + 1 %}
+            {% endfor %}
+            <div class="row">
+                <div class="col">
+                    <input type="submit" value="Register" class="btn btn-success btn-block">
+                </div>
+                <div class="col">
+                    <a href="/users/login" class="btn btn-primary btn-block">Already have an account?</a>
+                </div>
+            </div>
+
+
+            <!-- end form -->
+
+            </form>
+        </div>
+        
+    </div>
+    
+    
+
+{% endblock %}
+
+{#    
+    {% for key,value in data %}
+        Key : {{ key }}
+        Value : {{ value }}
+    {% endfor %}
+#}
