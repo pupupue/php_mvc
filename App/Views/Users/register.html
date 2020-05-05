@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Register{% endblock %}
+{% block title %} {{ var }} {% endblock %}
 
 {% block body %}
     <h1>Welcome</h1>
@@ -42,10 +42,10 @@
                         {% set out_value = value2 %}
 
                         {% if out_key == 'password' or out_key == 'confirm_password' %}
-                        <label for="{{ out_key }}">{{ out_key|capitalize }}: <sup>*</sup></label>
+                        <label for="{{ out_key }}">{{ out_key_readable|capitalize }}: <sup>*</sup></label>
                         <input type="password" name="{{ out_key }}" class="form-control form-control-lg {{ out_class }}" value="{{ out_value }}">
                         {% else %}
-                        <label for="{{ out_key }}">{{ out_key|capitalize }}: <sup>*</sup></label>
+                        <label for="{{ out_key }}">{{ out_key_readable|capitalize }}: <sup>*</sup></label>
                         <input type="text" name="{{ out_key }}" class="form-control form-control-lg {{ out_class }}" value="{{ out_value }}">
                         {% endif %}
                         

@@ -48,6 +48,10 @@ class View
             //$loader = new \Twig_Loader_Filesystem('../App/Views');
             $loader = new \Twig\Loader\FilesystemLoader(dirname(__DIR__) . '/App/Views');
             $twig = new \Twig\Environment($loader);
+            if (session_id() == "") {
+                session_start();
+            }
+            $twig->addGlobal('session', $_SESSION);
         } else {
             throw new \Exception("$template not found");
         }

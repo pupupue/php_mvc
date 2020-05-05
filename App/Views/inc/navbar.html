@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container">
-    <a class="navbar-brand" href="www.sitename.com/">SiteName</a>
+    <a class="navbar-brand" href="/">SiteName</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -17,7 +17,7 @@
                 <a class="nav-link" href="/posts/index">Posts</a>
             </li>
         </ul>
-
+        {% if session.user_id is empty %}
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="/users/register">Register</a>
@@ -26,6 +26,18 @@
                 <a class="nav-link" href="/users/login">Login</a>
             </li>
         </ul>
+        {% else %}
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Wellcome {{ session.user_name }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/logout">Logout</a>
+            </li>
+            
+        </ul>
+        {% endif %}
+        
 
     </div>
 

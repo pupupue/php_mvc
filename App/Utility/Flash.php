@@ -15,66 +15,68 @@ class Flash {
      * @access public
      * @param string $key
      * @param string $value [optional]
-     * @return string|null
+     * @return string|null returns session message string or nothing
      * @since 1.0.1
      */
     public static function session($key, $value = "") {
-        if (Session::exists($key)) {
+        if (Session::exists($key) && empty($value)) {
+            //called like flash::danger();
             $session = Session::get($key);
             Session::delete($key);
             return $session;
         } elseif (!empty($value)) {
-            return(Session::put($key, $value));
+            //called like flash::danger('you have to login');
+            return(Session::put($key, $value)); // set key value
         }
         return null;
     }
 
     /**
-     * Danger: Sets a message or returns the value of the SESSION_FLASH_DANGER key of
+     * Danger: Sets a message or returns the value of the $_SESSION['danger'] key of
      * the session.
      * @access public
      * @param string $value [optional]
      * @return string 
-     * @since 1.0.1
+     * @since 1.0.0
      */
     public static function danger($value = "") {
-        return(self::session(Config::get("SESSION_FLASH_DANGER"), $value));
+        return(self::session("danger", $value));
     }
 
     /**
-     * Info: Sets a message or returns the value of the SESSION_FLASH_INFO key of the
+     * Info: Sets a message or returns the value of the $_SESSION['info'] key of the
      * session.
      * @access public
      * @param string $value [optional]
      * @return string 
-     * @since 1.0.1
+     * @since 1.0.0
      */
     public static function info($value = "") {
-        return(self::session(Config::get("SESSION_FLASH_INFO"), $value));
+        return(self::session("info", $value));
     }
 
     /**
-     * Success: Sets a message or returns the value of the SESSION_FLASH_SUCCESS key of
+     * Success: Sets a message or returns the value of the $_SESSION['success'] key of
      * the session.
      * @access public
      * @param string $value [optional]
      * @return string 
-     * @since 1.0.1
+     * @since 1.0.0
      */
     public static function success($value = "") {
-        return(self::session(Config::get(""), $value));
+        return(self::session("success", $value));
     }
 
     /**
-     * Warning: Sets a message or returns the value of the SESSION_FLASH_WARNING key of
+     * Warning: Sets a message or returns the value of the $_SESSION['warning'] key of
      * the session.
      * @access public
      * @param string $value [optional]
      * @return string 
-     * @since 1.0.1
+     * @since 1.0.0
      */
     public static function warning($value = "") {
-        return(self::session(Config::get("SESSION_FLASH_WARNING"), $value));
+        return(self::session("warning", $value));
     }
 
 }

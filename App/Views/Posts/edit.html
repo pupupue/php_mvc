@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+
+<a href="/posts/index" class="btn btn-light"> <i class="fa fa-backward"></i>  Back</a>
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body bg-light mt-5">
+            <h2>{{ title }} post</h2>
+            <form action="/posts/edit" method="post">
+
+            <!-- inside form -->
+            <p>Edit your post</p>
+            
+                <div class="form-group">
+                    {% set out_class = '' %}
+                    {% if errors.title != '' %}
+                        {% set out_class = 'is-invalid' %}
+                    {% endif %}
+                    <label for="title">Title: <sup>*</sup></label>
+                    <input type="text" name="title" class="form-control form-control-lg {{ out_class }}" value="{{ post.title }}">
+                    {% if out_class != '' %}
+                    <span class="invalid-feedback">{{ errors.title }}</span>
+                    {% endif %}
+
+                    {% set out_class = '' %}
+                    {% if errors.content != '' %}
+                        {% set out_class = 'is-invalid' %}
+                    {% endif %}
+                    <label for="ontent">Content: <sup>*</sup></label>
+                    <textarea  name="content" class="form-control form-control-lg {{ out_class }}" >{{ post.content }}</textarea>
+                    {% if out_class != '' %}
+                    <span class="invalid-feedback">{{ errors.content }}</span>
+                    {% endif %}
+
+                    <p>Created by {{ post.created_by|capitalize }} on: {{ post.created_at }}</p>
+                    <!-- hiddens to give with post back -->
+                    <input type="hidden" name="created_by" value="{{ post.created_by }}">
+                    <input type="hidden" name="created_at" value="{{ post.created_at }}">
+                    <input type="hidden" name="id" value="{{ post.id }}">
+                </div>
+
+            <input type="submit" value="Submit" class="btn btn-success">
+            <!-- end form -->
+            </form>
+        </div>
+        
+    </div>
+    
+{% endblock %}
+

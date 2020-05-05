@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block body %}
+
+<a href="/posts/index" class="btn btn-light"> <i class="fa fa-backward"></i>  Back</a>
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body bg-light mt-5">
+            <h2>Add new post</h2>
+            <form action="/posts/add" method="post">
+
+            <!-- inside form -->
+            <p>Create a post with this form</p>
+            {% set i = 0 %}
+            {% for key,value in errors %}
+                <div class="form-group">
+
+                {% set msg = value %}
+                {% if msg == '' %}
+                    {% set out_class = '' %}
+                {% else %}
+                    {% set out_class = 'is-invalid' %}
+                {% endif %}
+
+                {% set j = 0 %}
+
+                {% for key2, value2 in data %}
+                    {% if j == i %}
+                        {% set out_key = key2 %}
+                        {% set out_value = value2 %}
+
+                        {% if out_key == 'content' %}
+                        <label for="{{ out_key }}">{{ out_key|capitalize }}: <sup>*</sup></label>
+                        <textarea  name="{{ out_key }}" class="form-control form-control-lg {{ out_class }}" >{{ out_value }}</textarea>
+                        {% else %}
+                        <label for="{{ out_key }}">{{ out_key|capitalize }}: <sup>*</sup></label>
+                        <input type="text" name="{{ out_key }}" class="form-control form-control-lg {{ out_class }}" value="{{ out_value }}">
+                        {% endif %}
+    
+                    {% endif %}
+
+                    {% set j = j + 1 %}
+                {% endfor %}
+                
+                    <span class="invalid-feedback">{{ msg }}</span>
+                </div>
+                {% set i = i + 1 %}
+            {% endfor %}
+
+            <input type="submit" value="Submit" class="btn btn-success">
+
+            <!-- end form -->
+
+            </form>
+        </div>
+        
+    </div>
+    
+{% endblock %}
+

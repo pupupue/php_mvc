@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Utility\Session;
 /**
  * User Model:
  *
@@ -15,25 +15,15 @@ class User extends \Core\Model {
 
     protected static $db_table = "users";
 
-    // /**
-    //  * Constructor:
-    //  * @access public
-    //  * @since 1.0.0
-    //  */
-    // public function __construct()
-    // {
-    //     $this->db = new Database; //if its how you conn to db
-    // }
-
     /**
      * Find user by Email:
      * @access public
      * @param string $email 
      * @return true:false if found
      * @since 1.0.0
-     * //////
-     * can be rewritten better with code from core/model
-     * //////
+     * 
+     * //can be rewritten better with code from core/model
+     * 
      */
     public function findUserByEmail($email){
         $sql = 'SELECT * FROM users WHERE email = :email';
@@ -45,6 +35,7 @@ class User extends \Core\Model {
             return false;
         }
     }
+    
     /**
      * Create User: Inserts a new user into the database, returns unique
      * user if successful, otherwise returns false.
@@ -56,46 +47,44 @@ class User extends \Core\Model {
      */
     public function createUser(array $fields) {
         if (!$userID = $this->create(static::$db_table, $fields)) {
-            throw new \Exception("");
+            throw new \Exception("failed to make user");
         }
         return $userID;
     }
 
-
-
-    //might be usefull in practice have to rewrite
-    /////////////////////////////////////
     /**
-     * Get Instance: Returns an instance of the User model if the specified user
-     * exists in the database. 
+     * Login: Validates the login from form by email and password
+     * returns users_data array if validates ? false
      * @access public
-     * @param string $user
-     * @return User|null
+     * @param string email
+     * @param string password
+     * @return mixed|boolean
      * @since 1.0.0
      */
-    public static function getInstance($user) {
-        $User = new User();
-        if ($User->findUser($user)->exists()) {
-            return $User;
+    public function login($email, $password){
+        $user = $this->get(static::$db_table, 'email', "=", $email);
+        $user_data = $user->results();
+        $user_data = $user_data[0];//->first()
+        $db_password = $user_data['password'];
+        if(password_verify($password, $db_password)){
+            return $user_data;
         }
-        return null;
+        return false;
     }
 
     /**
-     * Find User: Retrieves and stores a specified user record from the database
-     * into a class property. Returns true if the record was found, or false if
-     * not.
+     * Is logged in: 
      * @access public
-     * @param string $user
      * @return boolean
      * @since 1.0.0
      */
-    public function findUser($user) {
-        $field = filter_var($user, FILTER_VALIDATE_EMAIL) ? "email" : (is_numeric($user) ? "id" : "username");
-        return($this->find(static::$db_table, [$field, "=", $user]));
+    public function isLoggedIn(){
+        if(Session::exists('user_id')){
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-    
 
     /**
      * Update User: Updates a specified user record in the database.
@@ -108,8 +97,42 @@ class User extends \Core\Model {
      */
     public function updateUser(array $fields, $userID = null) {
         if (!$this->update(static::$db_table, $fields, $userID)) {
-            throw new Exception(Utility\Text::get("USER_UPDATE_EXCEPTION"));
+            throw new Exception("User failed to update");
         }
+    }
+
+    /**
+     * Create User Session:
+     * @access public
+     * @param array $fields
+     * @param integer $userID [optional]
+     * @return boolean
+     * @since 1.0.0
+     * @throws Exception
+     */
+    public function createUsersSession($user) {
+        try{
+            Session::put('user_id', $user['id']);
+            Session::put('user_email', $user['email']);
+            Session::put('user_name', $user['forename']);
+            Session::put('user_surname', $user['surname']);
+            return true;
+        } catch (exception $e) {
+            throw new Exception("Session writing failed");
+            return false;
+        }
+        
+    }
+
+    /**
+    * Get By ID:
+    * @access public
+    * @param string $id 
+    * @return Database|boolean
+    * @since 1.0.0
+    */
+    public function getById($id) {
+        return($this->get(static::$db_table, "id", "=", $id));
     }
 
 }

@@ -91,7 +91,6 @@ class Database
                 }
             } else {
                 $this->_error = true;
-                //die(print_r($this->_query->errorInfo()));
             }
         }
         // returns PDO object
@@ -106,6 +105,7 @@ class Database
     * @param string $field [optional]
     * @param string $operator [optional]
     * @param string $value [optional]
+    * @param boolean $use_fetchall [optinal]
     * @return Database|boolean
     * @since 1.0.0
     */
@@ -148,8 +148,8 @@ class Database
      * @return Database|boolean
      * @since 1.0.0
      */
-    public function select($table, $field="", $operator="", $value="") {
-        return($this->action('SELECT *', $table, $field, $operator, $value));
+    public function select($table, $field="", $operator="", $value="", $use_fetchall) {
+        return($this->action('SELECT *', $table, $field, $operator, $value, $use_fetchall));
     }
 
     /**

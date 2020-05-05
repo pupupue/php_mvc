@@ -3,15 +3,31 @@
 {% block title %}Posts{% endblock %}
 
 {% block body %}
-    <h1>Posts</h1>
-
-    <!-- passed into page through mvc data -->
-    <ul>
-
-    {% for post in posts %}
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-    {% endfor %}
+    <div class="row" style="margin-bottom: 6em">
+        <div class="col-sm-6">
+            <h1>Posts</h1>
+        </div>
+        <div class="col-sm-6">
+            <a href="/posts/add-new" class="btn btn-primary pull-right"> <i class="fa fa-pencil"></i> New post</a>
+        </div>
+    </div>
     
-    </ul>
+    
+    <!-- passed into page through mvc data -->
+
+
+    <div class="row">
+    {% for post in posts %}
+        <div class="col-6">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+        </div>
+        <div class="col-6">
+            <a href="{{post.id}}/view" class="btn btn-primary pull-right">More</a>
+        </div>
+        <hr>
+    {% endfor %}
+    </div>
+    
+
 {% endblock %}

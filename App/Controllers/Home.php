@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use \Core\View;
+use App\Utility\Session;
+use App\Utility\Redirect;
 
 /**
  * Home controller
@@ -13,6 +15,17 @@ class Home extends \Core\Controller
 {
 
     /**
+     * Constructor:
+     * @access public
+     * @since 1.0.0
+     */
+    public function __construct($route_params)
+    {
+        Session::init();
+        $this->route_params = $route_params;
+    }
+
+    /**
      * Before filter
      *
      * @return void
@@ -21,7 +34,7 @@ class Home extends \Core\Controller
     {
         //echo "(before) ";
         //return false;
-        echo phpversion();
+        //echo phpversion();
     }
 
     /**
@@ -41,15 +54,11 @@ class Home extends \Core\Controller
      */
     public function indexAction()
     {
-        /*
-        View::render('Home/index.php', [
-            'name'    => 'Dave',
-            'colours' => ['red', 'green', 'blue']
-        ]);
-        */
+        if(Session::exists('user_id')){
+            Redirect::to('posts/index');
+        }
         View::renderTemplate('Home/index.html', [
-            'name'    => 'Janis L',
-            'colours' => ['red', 'green', 'blue']
+
         ]);
     }
 
@@ -65,4 +74,22 @@ class Home extends \Core\Controller
             //
         ]);
     }
+
+    /**
+     * Show the test page
+     * delete this
+     * @return void
+     */
+    public function testAction()
+    {
+        $key = "yes";
+        $value = "";
+        if ($key != "" && empty($value)) {
+            echo "if";
+        } elseif (!empty($value)) {
+            echo "elseif";
+        }
+    }
+
+    
 }

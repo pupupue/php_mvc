@@ -39,8 +39,8 @@ class Post extends \Core\Model
     * @return Database|boolean
     * @since 1.0.0
     */
-    public function deleteById($value) {
-        return($this->db->action('DELETE', static::$db_table, "id", "=", $value, false));
+    public function deleteById($id) {
+        return($this->delete(static::$db_table, "id", "=", $id));
     }
 
     /**
@@ -51,7 +51,7 @@ class Post extends \Core\Model
     * @since 1.0.0
     */
     public function updateById($id, $fields) {
-        return($this->db->update(static::$db_table, "id", $fields));
+        return($this->db->update(static::$db_table, $id, $fields));
     }
 
     /**
@@ -62,7 +62,18 @@ class Post extends \Core\Model
     * @since 1.0.0
     */
     public function getById($id) {
-        return($this->db->select(static::$db_table, "id", "=", $id));
+        return($this->get(static::$db_table, "id", "=", $id));
+    }
+
+    /**
+    * Create new Post:
+    * @access public
+    * @param array $fields
+    * @return Database|boolean
+    * @since 1.0.0
+    */
+    public function createNewPost($fields) {
+        return($this->create(static::$db_table, $fields));
     }
 
 

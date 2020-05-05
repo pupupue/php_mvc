@@ -48,9 +48,9 @@ class Model
      * @param array $fields 
      * @since 1.0.0
      */
-    public function update($table, $id, array $fields = [])
+    public function update($table, $id, $field="", $operator="", $value="")
     {
-        return $this->db->update($table, $id, $fields);
+        return $this->db->update($table, $id, $field, $operator, $value, false);
     }
 
     /**
@@ -74,11 +74,12 @@ class Model
     * @param string $field [optional]
     * @param string $operator [optional]
     * @param string $value [optional]
+    * @param bool usefetchall [use]
     * @return Database|boolean
     * @since 1.0.0
     */
     public function get($table, $field="", $operator="", $value="") {
-        return($this->db->select($table, $field, $operator, $value));
+        return($this->db->select($table, $field, $operator, $value, true));
     }
 
 

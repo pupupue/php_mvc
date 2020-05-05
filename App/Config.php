@@ -17,10 +17,8 @@ class Config
     const SHOW_ERRORS = true;// true for dev, flase for live
 }
 
-//define 
 
-/// correct location? only known if uses app/config
-define("URLROOT", "http://localhost");
+
 
 
 

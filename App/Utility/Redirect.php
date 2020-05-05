@@ -2,6 +2,10 @@
 
 namespace App\Utility;
 
+
+// define
+define("URLROOT", "http://localhost");
+
 /**
  * Redirect:
  *

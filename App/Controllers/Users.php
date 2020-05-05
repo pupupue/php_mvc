@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Utility\Redirect;
+use App\Utility\Flash;
+use App\Utility\Session;
 use \Core\View;
 use App\Models\User;
 /**
@@ -18,9 +20,11 @@ class Users extends \Core\Controller
      * @access public
      * @since 1.0.0
      */
-    public function __construct()
+    public function __construct($route_params)
     {
         $this->userModel = new User;
+        $this->route_params = $route_params;
+        Session::init();
     }
 
     /**
@@ -34,10 +38,11 @@ class Users extends \Core\Controller
 
     public function registerAction()
     {
-        //checking post
+
+        // IF post request
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             
-        //sanitize Post data
+        //sanitize 
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         //init data
         $data = [
@@ -97,18 +102,18 @@ class Users extends \Core\Controller
             //dont need confirm password field in database
             unset($data['confirm_password']);
             // Register User
+        
             $this->userModel->createUser($data);
-            $redirect = new Redirect;
-            $redirect::to('users/login');
+            Flash::success('User registered successfully!');
+            Redirect::to("users/login");
             
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
 
-
-
         } else {
             //load view 
+
             View::renderTemplate('Users/register.html', [
                 'var' => 'register form',
                 'data' => $data,
@@ -118,7 +123,7 @@ class Users extends \Core\Controller
 
   
         } else {
-            //init data
+            // Default case
             $data = [
                 'email' => '',
                 'forename' => '',
@@ -133,11 +138,18 @@ class Users extends \Core\Controller
                 'password_err' => '',
                 'confirm_password_err' => '',
             ];
+            $feedback = [// reset case by default
+                'success' => Flash::success(),
+                'danger' => Flash::danger(),
+                'info' => Flash::info(),
+                'warning' => Flash::warning()
+            ];
 
             View::renderTemplate('Users/register.html', [
                 'var' => 'register form',
                 'data' => $data,
-                'errors' => $errors
+                'errors' => $errors,
+                'feedback' => $feedback
             ]);
 
         }
@@ -154,6 +166,11 @@ class Users extends \Core\Controller
 
     public function loginAction()
     {
+        //check already logged in
+        if(Session::exists('user_id')){
+            Redirect::to('posts/index');
+        }
+
         //checking post
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //sanitize Post data
@@ -168,33 +185,56 @@ class Users extends \Core\Controller
             'password_err' => ''
         ];
 
-        //validate email
+        // validate email
         if(empty($data['email'])){
             $errors['email_err'] = 'Please enter email';
         }
-        //validate password
+        // validate password
         if(empty($data['password'])){
             $errors['password_err'] = 'Please enter password';
-        } elseif(strlen($data['password'] < 8)){
+        } elseif(strlen($data['password']) < 8){
             $errors['password_err'] = 'Password must be atleast 8 characters';
         }
 
-        //make sure errors are empty
+        if($this->userModel->findUserByEmail($data['email'])){
+            //user found
+
+        } else {
+            // email error
+            $errors['email_error'] = 'Please check your login';
+        }
+
+ 
         if(empty($errors['email_err']) && empty($errors['password_err']) ){
             // Validated
-            die("LOGIN SUCCESS");
-        } else {
-            //load view 
-            View::renderTemplate('Users/login.html', [
+            // check and login user
+            $userLoggedIn = $this->userModel->login($data['email'], $data['password']);
+
+            if($userLoggedIn){
+                // create session
+
+                if($this->userModel->createUsersSession($userLoggedIn)){
+                    Redirect::to("posts/index");
+                }
+
+            } else {
+                $errors['password_err'] = 'Please check your password';
+                //load view 
+                View::renderTemplate('Users/login.html', [
                 'var' => 'login form',
                 'data' => $data,
                 'errors' => $errors
-            ]);
+                ]);
+
+            }
+
         }
 
 
         } else {
+            //first load
             //init data
+            
             $data = [
                 'email' => '',
                 'password' => ''
@@ -204,25 +244,39 @@ class Users extends \Core\Controller
                 'email_err' => '',
                 'password_err' => ''
             ];
+            $feedback = [
+                'success' => Flash::success(),
+                'danger' => Flash::danger(),
+                'info' => Flash::info(),
+                'warning' => Flash::warning()
+            ];
 
             View::renderTemplate('Users/login.html', [
                 'var' => 'login form',
                 'data' => $data,
-                'errors' => $errors
+                'errors' => $errors,
+                'feedback' => $feedback
             ]);
 
         }
     }
 
+
     /**
-     * Show the index page
+     * Logout
      * @access public
      * @since 1.0.0
      * @return void
      */
-    public function indexAction()
+    public function logoutAction()
     {
 
+        Session::delete('user_id');
+        Session::delete('user_email');
+        Session::delete('user_name');
+        Session::delete('user_surname');
+        Session::destroy();
+        Redirect::to("users/login");
     }
 
     /**

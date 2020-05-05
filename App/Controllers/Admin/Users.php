@@ -4,8 +4,8 @@ namespace App\Controllers\Admin;
 
 /**
  * User admin controller
- *
- * PHP version 5.4
+ * [reuse users to make admin]
+ * PHP version 7.4.3
  */
 class Users extends \Core\Controller
 {
@@ -28,6 +28,6 @@ class Users extends \Core\Controller
      */
     public function indexAction()
     {
-        echo 'User admin index';
+
     }
 }
