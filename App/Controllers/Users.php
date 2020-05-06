@@ -108,7 +108,7 @@ class Users extends \Core\Controller
             Redirect::to("users/login");
             
             } catch (Exception $e) {
-                echo $e->getMessage();
+                throw new \Exception("Registration error");
             }
 
         } else {

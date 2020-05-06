@@ -28,7 +28,7 @@ class Post extends \Core\Model
             $results = $PDO->results();
             return $results;
         } catch(PDOException $e) {
-            echo $e->getMessage();
+            throw new \Exception("Couldnt retrieve posts.");
         }
     }
 

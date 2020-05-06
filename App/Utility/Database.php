@@ -49,7 +49,7 @@ class Database
             $this->_PDO = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8",$username, $password);
             $this->_PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            throw new \Exception("DB connection error");
         }
     }
 
