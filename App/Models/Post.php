@@ -23,7 +23,7 @@ class Post extends \Core\Model
     public function getAll()
     {
         try {
-            $sql = "SELECT id, title, content FROM ".static::$db_table." ORDER BY created_at";
+            $sql = "SELECT id, title, content FROM ".static::$db_table." ORDER BY id DESC";
             $PDO = $this->db->query($sql);//,[':$id'=>1]
             $results = $PDO->results();
             return $results;
