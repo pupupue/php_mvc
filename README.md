@@ -1,7 +1,6 @@
 # PHP MVC Register, Login & Post 
 
-A simple PHP MVC user authentication application framework from scratch. Implements [Twig] templating engine. This would be useful for small projects. It would really help if you understand the basics of object-oriented programming and MVC, and if you are capable of using the cmd line. This script isn't for beginners.
-
+A PHP MVC user authentication application framework from scratch. Implements [Twig] templating engine. 
 ## Requirements
 * PHP 5.5+
 * MySQL 5 database
@@ -27,7 +26,4 @@ Import the SQL files from _install via phpmyadmin.
 * Routing logic can be found in Core/Router.php
 * Routes can be setup in the front controller at public/index.php
 
-### Later implement?
-* sass?
-* images?
-* react.js?
+
