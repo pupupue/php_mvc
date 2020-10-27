@@ -1,4 +1,4 @@
-# PHP MVC Register, Login & Post 
+# PHP Model View Controller mini-framework
 
 A PHP MVC user authentication application framework from scratch. Implements [Twig] templating engine. 
 ## Requirements
